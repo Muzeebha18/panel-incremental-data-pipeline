@@ -1,0 +1,61 @@
+2026-03-24 14:43:19 | INFO     | root                 | Logging initialized. Log file: logs\pipeline_20260324_144319.log
+2026-03-24 14:43:19 | INFO     | root                 | Generated batch_id: BATCH_20260324_144319_dcceb03c
+2026-03-24 14:43:19 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:43:19 | INFO     | src.pipeline         | PIPELINE START — Batch: BATCH_20260324_144319_dcceb03c
+2026-03-24 14:43:19 | INFO     | src.pipeline         | Source files: ['data/daily_transactions_day3_bad_data.csv']
+2026-03-24 14:43:19 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:43:19 | INFO     | src.database         | Using python-oracledb thin mode (set database.oracle_client_lib_dir or ORACLE_CLIENT_LIB_DIR for thick mode)
+2026-03-24 14:43:21 | INFO     | src.database         | Connected to Oracle database as OPT_JCT_DEMO (version: 19.3.0.0.0)
+2026-03-24 14:43:21 | INFO     | src.database         | Table already exists: stg_transactions (skipped)
+2026-03-24 14:43:21 | INFO     | src.database         | Table already exists: target_transactions (skipped)
+2026-03-24 14:43:21 | INFO     | src.database         | Table already exists: transaction_history (skipped)
+2026-03-24 14:43:22 | INFO     | src.database         | Table already exists: quarantine_records (skipped)
+2026-03-24 14:43:22 | INFO     | src.database         | Table already exists: pipeline_run_log (skipped)
+2026-03-24 14:43:22 | INFO     | src.database         | Table already exists: reconciliation_results (skipped)
+2026-03-24 14:43:22 | INFO     | src.database         | Table already exists: pipeline_checkpoints (skipped)
+2026-03-24 14:43:23 | INFO     | src.database         | Table already exists: rollback_snapshots (skipped)
+2026-03-24 14:43:23 | INFO     | src.database         | Table already exists: data_quality_scores (skipped)
+2026-03-24 14:43:33 | INFO     | src.database         | DDL execution complete. All tables ready.
+2026-03-24 14:43:34 | INFO     | src.checkpointing    | No checkpoint found for batch BATCH_20260324_144319_dcceb03c — starting from scratch
+2026-03-24 14:43:34 | INFO     | src.pipeline         | ----- STAGE 1: INGEST -----
+2026-03-24 14:43:34 | INFO     | src.pipeline         | Processing file: C:\Users\muzeebha.m\Documents\Assessment-Task\data\daily_transactions_day3_bad_data.csv
+2026-03-24 14:43:34 | INFO     | src.ingestion        | Read 10 records from C:\Users\muzeebha.m\Documents\Assessment-Task\data\daily_transactions_day3_bad_data.csv
+2026-03-24 14:43:34 | WARNING  | src.ingestion        | Validation failed for record []: NULL_TXN_ID - Transaction ID is missing or empty
+2026-03-24 14:43:34 | WARNING  | src.ingestion        | Validation failed for record [TXN038]: NULL_ACCT_ID - Account ID is missing or empty
+2026-03-24 14:43:34 | WARNING  | src.ingestion        | Validation failed for record [TXN039]: NEGATIVE_AMOUNT - Amount is negative: -500.0
+2026-03-24 14:43:34 | WARNING  | src.ingestion        | Validation failed for record [TXN040]: INVALID_AMOUNT - Amount is not numeric: 'abc'
+2026-03-24 14:43:34 | WARNING  | src.ingestion        | Validation failed for record [TXN041]: INVALID_TXN_TYPE - Invalid transaction type: 'INVALID_TYPE'
+2026-03-24 14:43:34 | WARNING  | src.ingestion        | Validation failed for record [TXN042]: AMOUNT_THRESHOLD - Amount 999999999.99 exceeds safety threshold 10000000.0
+2026-03-24 14:43:34 | WARNING  | src.ingestion        | Validation failed for record [TXN036]: DUPLICATE_IN_BATCH - Duplicate transaction ID in same file: TXN036
+2026-03-24 14:43:34 | INFO     | src.ingestion        | File daily_transactions_day3_bad_data.csv processed — Valid: 3 | Invalid: 7 | Total: 10
+2026-03-24 14:43:35 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144319_dcceb03c, stage=INGEST, status=COMPLETED, records=10
+2026-03-24 14:43:36 | INFO     | src.pipeline         | ----- STAGE 2: VALIDATE -----
+2026-03-24 14:43:37 | INFO     | src.database         | Quarantined 7 invalid records (batch: BATCH_20260324_144319_dcceb03c)
+2026-03-24 14:43:37 | WARNING  | src.pipeline         | 7 records quarantined due to validation errors
+2026-03-24 14:43:37 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144319_dcceb03c, stage=VALIDATE, status=COMPLETED, records=7
+2026-03-24 14:43:39 | INFO     | src.pipeline         | ----- STAGE 3: TRANSFORM -----
+2026-03-24 14:43:39 | INFO     | src.transformation   | Deduplication: No duplicates found in 3 records
+2026-03-24 14:43:39 | INFO     | src.transformation   | Standardized 3 records
+2026-03-24 14:43:39 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144319_dcceb03c, stage=TRANSFORM, status=COMPLETED, records=3
+2026-03-24 14:43:41 | INFO     | src.pipeline         | ----- STAGE 4: LOAD (Staging + MERGE) -----
+2026-03-24 14:43:41 | INFO     | src.database         | Inserted 3 records into staging (batch: BATCH_20260324_144319_dcceb03c)
+2026-03-24 14:43:42 | INFO     | src.database         | Rollback snapshot: 0 existing rows saved
+2026-03-24 14:43:43 | INFO     | src.database         | MERGE complete — Inserted: 3 | Updated: 0 | Skipped (unchanged): 0
+2026-03-24 14:43:44 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144319_dcceb03c, stage=LOAD, status=COMPLETED, records=3
+2026-03-24 14:43:45 | INFO     | src.pipeline         | ----- STAGE 5: RECONCILE -----
+2026-03-24 14:43:45 | INFO     | src.reconciliation   | ROW_COUNT check: Expected=3, Actual=3 — PASS
+2026-03-24 14:43:46 | INFO     | src.reconciliation   | TOTAL_AMOUNT check: Source=9800.00, Target=9800.00, Diff=0.00 — PASS
+2026-03-24 14:43:46 | INFO     | src.reconciliation   | DISTINCT_KEYS check: Total=38, Distinct=38 — PASS
+2026-03-24 14:43:46 | INFO     | src.reconciliation   | ORPHAN_RECORDS check: 0 orphans — PASS
+2026-03-24 14:43:48 | INFO     | src.reconciliation   | Reconciliation report saved: reports\recon_report_BATCH_20260324_144319_dcceb03c.json
+2026-03-24 14:43:48 | INFO     | src.reconciliation   | Reconciliation for batch BATCH_20260324_144319_dcceb03c: 4 PASS, 0 FAIL — Overall: PASS
+2026-03-24 14:43:48 | WARNING  | src.alerting         | ALERT [BATCH_20260324_144319_dcceb03c] DATA_QUALITY: 7 records failed validation and were quarantined (quality score: 30.0%)
+2026-03-24 14:43:48 | INFO     | src.alerting         | Alert report saved: reports\alerts_BATCH_20260324_144319_dcceb03c.json (1 alerts)
+2026-03-24 14:43:49 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144319_dcceb03c, stage=RECONCILE, status=COMPLETED, records=0
+2026-03-24 14:43:50 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:43:50 | INFO     | src.pipeline         | PIPELINE COMPLETE — Batch: BATCH_20260324_144319_dcceb03c
+2026-03-24 14:43:50 | INFO     | src.pipeline         | Duration: 30s
+2026-03-24 14:43:50 | INFO     | src.pipeline         | Stats: {'records_read': 10, 'records_valid': 3, 'records_invalid': 7, 'records_inserted': 3, 'records_updated': 0, 'records_skipped': 0, 'duplicate_records': 0, 'files_processed': 1}
+2026-03-24 14:43:50 | INFO     | src.pipeline         | Alerts: {'total_alerts': 1, 'critical': 0, 'warnings': 1}
+2026-03-24 14:43:50 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:43:50 | INFO     | src.database         | Database connection closed.

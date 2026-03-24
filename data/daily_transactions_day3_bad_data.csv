@@ -1,0 +1,11 @@
+transaction_id,transaction_date,account_id,transaction_type,amount,currency,merchant,description,channel
+TXN036,2026-02-27,ACC1001,DEBIT,1200.00,INR,Zara,Clothing Purchase,POS
+,2026-02-27,ACC1002,DEBIT,500.00,INR,Unknown,Missing TXN ID Test,UPI
+TXN038,2026-02-27,,CREDIT,3000.00,INR,Payment,Missing Account ID Test,NEFT
+TXN039,2026-02-27,ACC1003,DEBIT,-500.00,INR,Error Merchant,Negative Amount Test,ONLINE
+TXN040,2026-02-27,ACC1004,DEBIT,abc,INR,Bad Data Co,Non-Numeric Amount Test,UPI
+TXN041,2026-02-27,ACC1005,INVALID_TYPE,2200.00,INR,Test Store,Invalid Transaction Type,POS
+TXN042,2026-02-27,ACC1001,DEBIT,999999999.99,INR,Suspicious Corp,Unusually Large Amount,ONLINE
+TXN036,2026-02-27,ACC1001,DEBIT,1200.00,INR,Zara,Duplicate TXN ID In Same Batch,POS
+TXN043,2026-02-27,ACC1002,CREDIT,7500.00,INR,Freelance Pay,Valid Transaction,IMPS
+TXN044,2026-02-27,ACC1003,DEBIT,1100.00,INR,PVR Cinemas,Movie Night,POS

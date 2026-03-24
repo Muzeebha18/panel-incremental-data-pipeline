@@ -1,0 +1,43 @@
+{
+  "batch_id": "BATCH_20260324_144319_dcceb03c",
+  "generated_at": "2026-03-24T14:43:48.262193",
+  "overall_status": "PASS",
+  "checks": [
+    {
+      "check_type": "ROW_COUNT",
+      "source_value": 3,
+      "target_value": 3,
+      "difference": 0,
+      "tolerance_pct": 0.0,
+      "status": "PASS",
+      "details": "Expected 3 rows affected, found 3"
+    },
+    {
+      "check_type": "TOTAL_AMOUNT",
+      "source_value": 9800.0,
+      "target_value": 9800.0,
+      "difference": 0.0,
+      "tolerance_pct": 0.01,
+      "status": "PASS",
+      "details": "Source sum=9800.00, Target sum=9800.00, Diff=0.00"
+    },
+    {
+      "check_type": "DISTINCT_KEYS",
+      "source_value": 38,
+      "target_value": 38,
+      "difference": 0,
+      "tolerance_pct": 0.0,
+      "status": "PASS",
+      "details": "Total rows=38, Distinct keys=38, Duplicates=0"
+    },
+    {
+      "check_type": "ORPHAN_RECORDS",
+      "source_value": 0,
+      "target_value": 0,
+      "difference": 0,
+      "tolerance_pct": 0.0,
+      "status": "PASS",
+      "details": "0 staging records not found in target"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+2026-03-24 14:42:47 | INFO     | root                 | Logging initialized. Log file: logs\pipeline_20260324_144247.log
+2026-03-24 14:42:47 | INFO     | root                 | Generated batch_id: BATCH_20260324_144247_efa351ba
+2026-03-24 14:42:47 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:42:47 | INFO     | src.pipeline         | PIPELINE START — Batch: BATCH_20260324_144247_efa351ba
+2026-03-24 14:42:47 | INFO     | src.pipeline         | Source files: ['data/daily_transactions_day2.csv']
+2026-03-24 14:42:47 | INFO     | src.pipeline         | Correction files: ['data/corrections_day2.csv']
+2026-03-24 14:42:47 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:42:47 | INFO     | src.database         | Using python-oracledb thin mode (set database.oracle_client_lib_dir or ORACLE_CLIENT_LIB_DIR for thick mode)
+2026-03-24 14:42:48 | INFO     | src.database         | Connected to Oracle database as OPT_JCT_DEMO (version: 19.3.0.0.0)
+2026-03-24 14:42:49 | INFO     | src.database         | Table already exists: stg_transactions (skipped)
+2026-03-24 14:42:49 | INFO     | src.database         | Table already exists: target_transactions (skipped)
+2026-03-24 14:42:49 | INFO     | src.database         | Table already exists: transaction_history (skipped)
+2026-03-24 14:42:49 | INFO     | src.database         | Table already exists: quarantine_records (skipped)
+2026-03-24 14:42:50 | INFO     | src.database         | Table already exists: pipeline_run_log (skipped)
+2026-03-24 14:42:50 | INFO     | src.database         | Table already exists: reconciliation_results (skipped)
+2026-03-24 14:42:50 | INFO     | src.database         | Table already exists: pipeline_checkpoints (skipped)
+2026-03-24 14:42:50 | INFO     | src.database         | Table already exists: rollback_snapshots (skipped)
+2026-03-24 14:42:51 | INFO     | src.database         | Table already exists: data_quality_scores (skipped)
+2026-03-24 14:43:03 | INFO     | src.database         | DDL execution complete. All tables ready.
+2026-03-24 14:43:03 | INFO     | src.checkpointing    | No checkpoint found for batch BATCH_20260324_144247_efa351ba — starting from scratch
+2026-03-24 14:43:04 | INFO     | src.pipeline         | ----- STAGE 1: INGEST -----
+2026-03-24 14:43:04 | INFO     | src.pipeline         | Processing file: C:\Users\muzeebha.m\Documents\Assessment-Task\data\daily_transactions_day2.csv
+2026-03-24 14:43:04 | INFO     | src.ingestion        | Read 15 records from C:\Users\muzeebha.m\Documents\Assessment-Task\data\daily_transactions_day2.csv
+2026-03-24 14:43:04 | INFO     | src.ingestion        | File daily_transactions_day2.csv processed — Valid: 15 | Invalid: 0 | Total: 15
+2026-03-24 14:43:04 | INFO     | src.pipeline         | Processing corrections file: C:\Users\muzeebha.m\Documents\Assessment-Task\data\corrections_day2.csv
+2026-03-24 14:43:04 | INFO     | src.ingestion        | Read 5 records from C:\Users\muzeebha.m\Documents\Assessment-Task\data\corrections_day2.csv
+2026-03-24 14:43:04 | INFO     | src.ingestion        | File corrections_day2.csv processed — Valid: 5 | Invalid: 0 | Total: 5
+2026-03-24 14:43:04 | INFO     | src.transformation   | Merged 15 daily + 5 corrections = 20 total (0 corrections applied to existing)
+2026-03-24 14:43:04 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144247_efa351ba, stage=INGEST, status=COMPLETED, records=20
+2026-03-24 14:43:06 | INFO     | src.pipeline         | ----- STAGE 2: VALIDATE -----
+2026-03-24 14:43:07 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144247_efa351ba, stage=VALIDATE, status=COMPLETED, records=0
+2026-03-24 14:43:08 | INFO     | src.pipeline         | ----- STAGE 3: TRANSFORM -----
+2026-03-24 14:43:08 | INFO     | src.transformation   | Deduplication: No duplicates found in 20 records
+2026-03-24 14:43:08 | INFO     | src.transformation   | Standardized 20 records
+2026-03-24 14:43:09 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144247_efa351ba, stage=TRANSFORM, status=COMPLETED, records=20
+2026-03-24 14:43:10 | INFO     | src.pipeline         | ----- STAGE 4: LOAD (Staging + MERGE) -----
+2026-03-24 14:43:11 | INFO     | src.database         | Inserted 20 records into staging (batch: BATCH_20260324_144247_efa351ba)
+2026-03-24 14:43:11 | INFO     | src.database         | Rollback snapshot: 5 existing rows saved
+2026-03-24 14:43:12 | INFO     | src.database         | MERGE complete — Inserted: 15 | Updated: 5 | Skipped (unchanged): 0
+2026-03-24 14:43:13 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144247_efa351ba, stage=LOAD, status=COMPLETED, records=20
+2026-03-24 14:43:14 | INFO     | src.pipeline         | ----- STAGE 5: RECONCILE -----
+2026-03-24 14:43:15 | INFO     | src.reconciliation   | ROW_COUNT check: Expected=20, Actual=20 — PASS
+2026-03-24 14:43:15 | INFO     | src.reconciliation   | TOTAL_AMOUNT check: Source=142675.50, Target=142675.50, Diff=0.00 — PASS
+2026-03-24 14:43:15 | INFO     | src.reconciliation   | DISTINCT_KEYS check: Total=35, Distinct=35 — PASS
+2026-03-24 14:43:15 | INFO     | src.reconciliation   | ORPHAN_RECORDS check: 0 orphans — PASS
+2026-03-24 14:43:16 | INFO     | src.reconciliation   | Reconciliation report saved: reports\recon_report_BATCH_20260324_144247_efa351ba.json
+2026-03-24 14:43:16 | INFO     | src.reconciliation   | Reconciliation for batch BATCH_20260324_144247_efa351ba: 4 PASS, 0 FAIL — Overall: PASS
+2026-03-24 14:43:18 | INFO     | src.checkpointing    | Checkpoint saved: batch=BATCH_20260324_144247_efa351ba, stage=RECONCILE, status=COMPLETED, records=0
+2026-03-24 14:43:19 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:43:19 | INFO     | src.pipeline         | PIPELINE COMPLETE — Batch: BATCH_20260324_144247_efa351ba
+2026-03-24 14:43:19 | INFO     | src.pipeline         | Duration: 32s
+2026-03-24 14:43:19 | INFO     | src.pipeline         | Stats: {'records_read': 20, 'records_valid': 20, 'records_invalid': 0, 'records_inserted': 15, 'records_updated': 5, 'records_skipped': 0, 'duplicate_records': 0, 'files_processed': 2}
+2026-03-24 14:43:19 | INFO     | src.pipeline         | Alerts: {'total_alerts': 0, 'critical': 0, 'warnings': 0}
+2026-03-24 14:43:19 | INFO     | src.pipeline         | ======================================================================
+2026-03-24 14:43:19 | INFO     | src.database         | Database connection closed.
+2026-03-24 14:43:19 | INFO     | root                 | Configuration loaded from config.json

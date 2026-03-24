@@ -1,0 +1,8 @@
+# Local secrets / environment-specific settings (do not commit)
+config.json
+
+# Python virtual environment (recreated with requirements)
+.venv/
+venv/
+__pycache__/
+*.pyc

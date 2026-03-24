@@ -1,0 +1,9 @@
+[
+  {
+    "batch_id": "BATCH_20260324_144319_dcceb03c",
+    "timestamp": "2026-03-24T14:43:48.767129",
+    "severity": "WARNING",
+    "alert_type": "DATA_QUALITY",
+    "message": "7 records failed validation and were quarantined (quality score: 30.0%)"
+  }
+]
