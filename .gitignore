@@ -1,6 +1,9 @@
 # Local secrets / environment-specific settings (do not commit)
 config.json
 
+# Panel / internal submission notes (keep local only)
+PANEL_SUBMISSION.md
+
 # Python virtual environment (recreated with requirements)
 .venv/
 venv/
